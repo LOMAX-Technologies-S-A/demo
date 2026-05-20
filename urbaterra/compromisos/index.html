@@ -17,10 +17,10 @@
   }
   h1,h2,h3,h4 { font-family: 'Poppins', sans-serif; }
 
-  .app { display: flex; min-height: 100vh; background: #42498d; }
+  .app { display: flex; min-height: 100vh; background: #232856; }
   .sidebar {
     width: 220px;
-    background: #42498d;
+    background: #232856;
     padding: 24px 0;
     display: flex;
     flex-direction: column;
@@ -28,7 +28,7 @@
   }
   .sidebar-logo { padding: 0 20px 28px; display: flex; align-items: center; }
   .sidebar-logo img { height: 28px; width: auto; }
-  .sidebar-nav { display: flex; flex-direction: column; gap: 2px; padding: 0 12px; flex: 1; }
+  .sidebar-nav { display: flex; flex-direction: column; gap: 2px; padding: 0 12px 12px; }
   .sidebar-nav a {
     color: rgba(255,255,255,0.6);
     text-decoration: none;
@@ -92,6 +92,63 @@
     margin-top: 1px;
   }
   .sidebar-team .st-chevron { width: 16px; height: 16px; color: rgba(255,255,255,0.3); }
+  .sidebar-users {
+    padding: 0 12px;
+    margin-bottom: 12px;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+  }
+  .sidebar-users .su-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: rgba(255,255,255,0.35);
+    font-weight: 600;
+    margin-bottom: 6px;
+    padding: 0 12px;
+  }
+  .sidebar-users .su-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .sidebar-users .su-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: default;
+    transition: background 0.12s;
+  }
+  .sidebar-users .su-item:hover { background: rgba(255,255,255,0.06); }
+  .sidebar-users .su-item.active { background: rgba(255,255,255,0.1); }
+  .sidebar-users .su-item img {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .sidebar-users .su-name {
+    flex: 1;
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .sidebar-users .su-item.active .su-name { color: #fff; font-weight: 600; }
+  .sidebar-users .su-check {
+    width: 16px; height: 16px;
+    color: #f79720;
+    flex-shrink: 0;
+  }
+  .sidebar-users .su-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    flex-shrink: 0;
+  }
+  .sidebar-users .su-item.active .su-dot { background: #f79720; }
 
   .main-wrap {
     flex: 1;
@@ -421,6 +478,9 @@
     .sidebar-team .st-icon svg { width: 15px; height: 15px; }
     .sidebar-team .st-info .st-name { font-size: 13px; }
     .sidebar-team .st-info .st-meta { font-size: 10px; }
+    .sidebar-users .su-item { padding: 5px 12px; }
+    .sidebar-users .su-item img { width: 22px; height: 22px; }
+    .sidebar-users .su-name { font-size: 12px; }
   }
 </style>
 </head>
@@ -437,6 +497,36 @@
       <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5z"/></svg> Sesiones</a>
       <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/></svg> Evaluaciones</a>
     </nav>
+    <div class="sidebar-users">
+      <div class="su-label">Miembros del equipo</div>
+      <div class="su-list">
+        <div class="su-item active">
+          <img src="https://ui-avatars.com/api/?name=Pablo+Castillo&background=42498d&color=fff&size=26" alt="">
+          <span class="su-name">Pablo Castillo</span>
+          <span class="su-dot"></span>
+        </div>
+        <div class="su-item">
+          <img src="https://ui-avatars.com/api/?name=Ana+Rodriguez&background=e67e22&color=fff&size=26" alt="">
+          <span class="su-name">Ana Rodríguez</span>
+          <span class="su-dot"></span>
+        </div>
+        <div class="su-item">
+          <img src="https://ui-avatars.com/api/?name=Luis+Martinez&background=27ae60&color=fff&size=26" alt="">
+          <span class="su-name">Luis Martínez</span>
+          <span class="su-dot"></span>
+        </div>
+        <div class="su-item">
+          <img src="https://ui-avatars.com/api/?name=Maria+Gonzalez&background=c0392b&color=fff&size=26" alt="">
+          <span class="su-name">María González</span>
+          <span class="su-dot"></span>
+        </div>
+        <div class="su-item">
+          <img src="https://ui-avatars.com/api/?name=Carlos+Garcia&background=8e44ad&color=fff&size=26" alt="">
+          <span class="su-name">Carlos García</span>
+          <span class="su-dot"></span>
+        </div>
+      </div>
+    </div>
     <div class="sidebar-team">
       <div class="st-label">Equipo activo</div>
       <div class="st-card">
