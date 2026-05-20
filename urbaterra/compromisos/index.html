@@ -17,10 +17,10 @@
   }
   h1,h2,h3,h4 { font-family: 'Poppins', sans-serif; }
 
-  .app { display: flex; min-height: 100vh; background: #474ea0; }
+  .app { display: flex; min-height: 100vh; background: #42498d; }
   .sidebar {
     width: 220px;
-    background: #474ea0;
+    background: #42498d;
     padding: 24px 0;
     display: flex;
     flex-direction: column;
@@ -45,6 +45,53 @@
   .sidebar-nav a.active { background: rgba(255,255,255,0.12); color: #fff; font-weight: 600; }
   .sidebar-nav a svg { width: 18px; height: 18px; }
   .sidebar-foot { display: none; }
+  .sidebar-team {
+    margin: 0 12px 16px;
+    padding: 0 12px;
+  }
+  .sidebar-team .st-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .sidebar-team .st-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 10px 12px;
+    cursor: default;
+    transition: background 0.15s;
+  }
+  .sidebar-team .st-card:hover { background: rgba(255,255,255,0.14); }
+  .sidebar-team .st-icon {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .sidebar-team .st-icon svg { width: 18px; height: 18px; color: #fff; }
+  .sidebar-team .st-info { flex: 1; min-width: 0; }
+  .sidebar-team .st-info .st-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .sidebar-team .st-info .st-meta {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 1px;
+  }
+  .sidebar-team .st-chevron { width: 16px; height: 16px; color: rgba(255,255,255,0.3); }
 
   .main-wrap {
     flex: 1;
@@ -368,6 +415,12 @@
     .kanban { flex-direction: column; }
     .column { max-width: none; }
     .modal { padding: 20px; }
+    .sidebar-team { margin: 0 12px 12px; }
+    .sidebar-team .st-card { padding: 8px 10px; }
+    .sidebar-team .st-icon { width: 28px; height: 28px; }
+    .sidebar-team .st-icon svg { width: 15px; height: 15px; }
+    .sidebar-team .st-info .st-name { font-size: 13px; }
+    .sidebar-team .st-info .st-meta { font-size: 10px; }
   }
 </style>
 </head>
@@ -384,6 +437,19 @@
       <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5z"/></svg> Sesiones</a>
       <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/></svg> Evaluaciones</a>
     </nav>
+    <div class="sidebar-team">
+      <div class="st-label">Equipo activo</div>
+      <div class="st-card">
+        <div class="st-icon">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/></svg>
+        </div>
+        <div class="st-info">
+          <div class="st-name">Ventas</div>
+          <div class="st-meta">8 miembros</div>
+        </div>
+        <svg class="st-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </div>
+    </div>
   </aside>
 
   <div class="main-wrap">
@@ -398,12 +464,7 @@
           <span class="label">Semana:</span>
           <span class="value" id="weekRange">actual</span>
         </div>
-        <div class="filter-pill">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/></svg>
-          <span class="label">Equipo:</span>
-          <span class="value">Ventas</span>
-        </div>
-        <button class="btn btn-ghost" disabled style="opacity:0.45;cursor:default;pointer-events:none">
+        <button class="btn btn-ghost" onclick="openNewCard()">
           <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 6a1 1 0 011 1v2h2a1 1 0 110 2h-2v2a1 1 0 11-2 0v-2H7a1 1 0 110-2h2V7a1 1 0 011-1z"/></svg>
           Nuevo compromiso
         </button>
