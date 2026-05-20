@@ -542,21 +542,68 @@
     .modal { padding: 20px; margin: 12px; max-height: 90vh; }
   }
 
+  /* ── Hamburger button (phone only) ── */
+  .hamburger {
+    display: none;
+    width: 36px; height: 36px;
+    background: #fff;
+    border: 1px solid #e0e4e8;
+    border-radius: 10px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+    padding: 0;
+  }
+  .hamburger:hover { background: #f5f5f5; }
+  .hamburger svg { width: 20px; height: 20px; color: #555; }
+
+  /* ── Sidebar overlay (phone only) ── */
+  .sidebar-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 49;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sidebar-overlay.open { display: block; }
+
   @media (max-width: 600px) {
-    .sidebar-logo { padding: 0 8px 0 12px; }
-    .sidebar-logo img { height: 18px; }
-    .sidebar-nav { padding: 0 4px; }
-    .sidebar-nav a { font-size: 11px; padding: 5px 8px; }
-    .sidebar-nav a svg { width: 13px; height: 13px; }
+    .app { flex-direction: row; position: relative; }
+    .sidebar {
+      position: fixed; top: 0; left: 0; bottom: 0;
+      width: 260px; flex-direction: column;
+      padding: 20px 0 0;
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+      z-index: 50;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.2);
+      border-radius: 0 16px 16px 0;
+    }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-logo { padding: 0 20px 20px; flex-direction: row; }
+    .sidebar-logo img { height: 22px; }
+    /* Restore sidebar elements that were hidden on tablet */
+    .sidebar-nav { flex-direction: column; padding: 0 12px; overflow: visible; flex: 0; }
+    .sidebar-nav a { font-size: 14px; padding: 10px 12px; white-space: normal; flex-shrink: 0; }
+    .sidebar-nav a svg { width: 18px; height: 18px; }
+    .sidebar-divider, .ss-label, .sidebar-team, .sidebar-users, .sidebar-reset { display: flex; }
+    .sidebar-divider { display: block; }
+    .sidebar-team { display: block; }
+    .sidebar-users { display: block; }
+    .sidebar-reset { display: flex; }
+    .sidebar-foot { display: none; }
+
     .main-wrap { padding: 10px; }
-    .header { margin-bottom: 14px; }
+    .hamburger { display: flex; }
+    .header-left { gap: 8px; }
     .header-left h1 { font-size: 16px; }
     .header-left .breadcrumb { font-size: 11px; }
     .header-right { gap: 4px; }
+    .header-right .btn span { display: none; }
     .filter-pill { font-size: 11px; padding: 4px 8px; }
     .filter-pill svg { width: 12px; height: 12px; }
-    .btn { font-size: 11px; padding: 5px 10px; }
-    .btn svg { width: 12px; height: 12px; }
     .summary { grid-template-columns: 1fr; gap: 6px; }
     .summary-card { padding: 10px; }
     .summary-card .value { font-size: 18px; }
@@ -576,17 +623,20 @@
 </head>
 <body>
 <div class="app">
-  <aside class="sidebar">
+  <!-- Sidebar overlay (phone only) -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+  <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
       <img src="https://urbaterra.com.gt/wp-content/uploads/sites/15/2025/05/Logotipo-Urbaterra-isotipo-con-color-1024x197.png" alt="URBATERRA">
     </div>
     <div class="ss-label">Módulos</div>
     <nav class="sidebar-nav">
-      <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3z"/><path d="M8 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H9a1 1 0 01-1-1V3z"/><path d="M2 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V9z"/><path d="M8 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H9a1 1 0 01-1-1V9z"/><path d="M14 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1V3z"/><path d="M14 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1V9z"/></svg> Dashboard</a>
-      <a href="#" class="active"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Compromisos</a>
-      <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12z" clip-rule="evenodd"/><circle cx="10" cy="10" r="2"/></svg> Metas</a>
-      <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><rect x="6" y="1" width="8" height="4" rx="1"/><rect x="2" y="10" width="6" height="4" rx="1"/><rect x="12" y="10" width="6" height="4" rx="1"/><rect x="9.5" y="5" width="1" height="5"/><rect x="5" y="9" width="10" height="1"/></svg> Vista General</a>
-      <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/></svg> Evaluaciones</a>
+      <a href="#" onclick="closeSidebar()"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3z"/><path d="M8 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H9a1 1 0 01-1-1V3z"/><path d="M2 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V9z"/><path d="M8 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H9a1 1 0 01-1-1V9z"/><path d="M14 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1V3z"/><path d="M14 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1V9z"/></svg> Dashboard</a>
+      <a href="#" class="active" onclick="closeSidebar()"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Compromisos</a>
+      <a href="#" onclick="closeSidebar()"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12z" clip-rule="evenodd"/><circle cx="10" cy="10" r="2"/></svg> Metas</a>
+      <a href="#" onclick="closeSidebar()"><svg viewBox="0 0 20 20" fill="currentColor"><rect x="6" y="1" width="8" height="4" rx="1"/><rect x="2" y="10" width="6" height="4" rx="1"/><rect x="12" y="10" width="6" height="4" rx="1"/><rect x="9.5" y="5" width="1" height="5"/><rect x="5" y="9" width="10" height="1"/></svg> Vista General</a>
+      <a href="#" onclick="closeSidebar()"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/></svg> Evaluaciones</a>
     </nav>
     <div class="sidebar-divider"></div>
     <div class="sidebar-team">
@@ -639,8 +689,13 @@
   <div class="main-wrap">
     <div class="header">
       <div class="header-left">
-        <div class="breadcrumb">Compromisos</div>
-        <h1>Tablero de compromisos</h1>
+        <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Abrir menú">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+        </button>
+        <div>
+          <div class="breadcrumb">Compromisos</div>
+          <h1>Tablero de compromisos</h1>
+        </div>
       </div>
       <div class="header-right">
         <div class="filter-pill">
@@ -685,7 +740,7 @@
           <span class="col-count" id="count-pendiente">0</span>
         </div>
         <div class="card-list" id="list-pendiente">
-          <div class="add-card" style="cursor:default;opacity:0.5">+ Agregar compromiso</div>
+          <div class="add-card" onclick="openNewCard('pendiente')">+ Agregar compromiso</div>
         </div>
       </div>
       <div class="column c2" data-col="progreso">
@@ -694,7 +749,7 @@
           <span class="col-count" id="count-progreso">0</span>
         </div>
         <div class="card-list" id="list-progreso">
-          <div class="add-card" style="cursor:default;opacity:0.5">+ Agregar compromiso</div>
+          <div class="add-card" onclick="openNewCard('progreso')">+ Agregar compromiso</div>
         </div>
       </div>
       <div class="column c3" data-col="completado">
@@ -703,7 +758,7 @@
           <span class="col-count" id="count-completado">0</span>
         </div>
         <div class="card-list" id="list-completado">
-          <div class="add-card" style="cursor:default;opacity:0.5">+ Agregar compromiso</div>
+          <div class="add-card" onclick="closeSidebar()" style="cursor:default;opacity:0.5">+ Agregar compromiso</div>
         </div>
       </div>
       <div class="column c4" data-col="bloqueado">
@@ -712,7 +767,7 @@
           <span class="col-count" id="count-bloqueado">0</span>
         </div>
         <div class="card-list" id="list-bloqueado">
-          <div class="add-card" style="cursor:default;opacity:0.5">+ Agregar compromiso</div>
+          <div class="add-card" onclick="openNewCard('bloqueado')">+ Agregar compromiso</div>
         </div>
       </div>
     </div>
@@ -1091,6 +1146,31 @@ function deleteCard() {
   showToast('Compromiso eliminado');
   render();
 }
+
+/* ── Sidebar toggle (phone) ── */
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+
+// Close sidebar on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar.classList.contains('open')) {
+      sidebar.classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+    }
+    if (document.getElementById('cardModal').classList.contains('active')) {
+      closeModal();
+    }
+  }
+});
 
 /* ── Helpers ── */
 function updateWeekRange() {
