@@ -689,20 +689,20 @@ const DEFAULT_DATA = {
   columns: {
     pendiente: [
       { id: 'c1', title: 'Realizar visita de seguimiento al lote modelo con cliente', category: 'ventas', priority: 'high', assignee: 'Pablo C.', progress: 0, dueDate: '2026-05-23', notes: 'Cliente interesado en lote 12, fase 2. Coordinar con ventas.' },
-      { id: 'c2', title: 'Preparar minuta de escritura para lote 47, fase 3', category: 'legal', priority: 'high', assignee: 'Luis M.', progress: 0, dueDate: '2026-05-22', notes: '' },
-      { id: 'c3', title: 'Actualizar tabla de apartados pendientes en CRM', category: 'admin', priority: 'medium', assignee: 'María G.', progress: 0, dueDate: '2026-05-21', notes: '' }
+      { id: 'c2', title: 'Preparar minuta de escritura para lote 47, fase 3', category: 'ventas', priority: 'high', assignee: 'Luis M.', progress: 0, dueDate: '2026-05-22', notes: '' },
+      { id: 'c3', title: 'Actualizar tabla de apartados pendientes en CRM', category: 'ventas', priority: 'medium', assignee: 'María G.', progress: 0, dueDate: '2026-05-21', notes: '' }
     ],
     progreso: [
-      { id: 'c4', title: 'Coordinar entrega de casa muestra en Ciudad San Cristóbal', category: 'proyectos', priority: 'high', assignee: 'Ana R.', progress: 60, dueDate: '', notes: 'Entrega programada para junio. Coordinar con construcción y ventas.' },
+      { id: 'c4', title: 'Coordinar entrega de casa muestra en Ciudad San Cristóbal', category: 'ventas', priority: 'high', assignee: 'Ana R.', progress: 60, dueDate: '', notes: 'Entrega programada para junio. Coordinar con construcción y ventas.' },
       { id: 'c5', title: 'Seguimiento a 8 prospectos de feria de vivienda', category: 'ventas', priority: 'medium', assignee: 'Pablo C.', progress: 40, dueDate: '', notes: '' },
-      { id: 'c6', title: 'Gestionar liberación de garantía fiduciaria F-2034', category: 'legal', priority: 'high', assignee: 'Luis M.', progress: 75, dueDate: '', notes: '' }
+      { id: 'c6', title: 'Gestionar liberación de garantía fiduciaria F-2034', category: 'ventas', priority: 'high', assignee: 'Luis M.', progress: 75, dueDate: '', notes: '' }
     ],
     completado: [
       { id: 'c7', title: 'Entregar informe mensual de ventas a dirección', category: 'ventas', priority: 'medium', assignee: 'María G.', progress: 100, dueDate: '2026-05-19', notes: '' },
-      { id: 'c8', title: 'Publicar lotes disponibles en portal web', category: 'marketing', priority: 'low', assignee: 'Ana R.', progress: 100, dueDate: '2026-05-19', notes: '' }
+      { id: 'c8', title: 'Publicar lotes disponibles en portal web', category: 'ventas', priority: 'low', assignee: 'Ana R.', progress: 100, dueDate: '2026-05-19', notes: '' }
     ],
     bloqueado: [
-      { id: 'c9', title: 'Registrar planos actualizados en plataforma — pendiente aprobación municipal', category: 'proyectos', priority: 'high', assignee: 'Pablo C.', progress: 0, dueDate: '', notes: 'Municipalidad no ha emitido dictamen. Bloqueado desde 12 may.', blockedReason: 'Esperando aprobación municipal' }
+      { id: 'c9', title: 'Registrar planos actualizados en plataforma — pendiente aprobación municipal', category: 'ventas', priority: 'high', assignee: 'Pablo C.', progress: 0, dueDate: '', notes: 'Municipalidad no ha emitido dictamen. Bloqueado desde 12 may.', blockedReason: 'Esperando aprobación municipal' }
     ]
   }
 };
@@ -773,7 +773,7 @@ function createCardElement(card, colKey) {
   if (colKey === 'bloqueado') div.classList.add('blocked');
 
   const catLabels = { ventas: 'Ventas', legal: 'Legal', proyectos: 'Proyectos', admin: 'Admin', marketing: 'Marketing', construccion: 'Construcción', servicio: 'Servicio al Cliente' };
-  const prioLabels = { high: '‼', medium: '●', low: '●' };
+  const prioLabels = { high: 'A', medium: 'M', low: 'B' };
   const prioClass = { high: 'high', medium: 'medium', low: 'low' };
   const initials = card.assignee ? card.assignee.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase() : '??';
   const avatarNum = ['p1','p2','p3'][Math.abs(hashCode(card.id||'x'))%3];
