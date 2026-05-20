@@ -45,20 +45,7 @@
   .sidebar-nav a:hover { background: rgba(255,255,255,0.08); color: #fff; }
   .sidebar-nav a.active { background: rgba(255,255,255,0.12); color: #fff; font-weight: 600; }
   .sidebar-nav a svg { width: 18px; height: 18px; }
-  .sidebar-foot { padding: 20px 16px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: auto; }
-  .sidebar-foot .user { display: flex; align-items: center; gap: 10px; }
-  .sidebar-foot .avatar { width: 32px; height: 32px; border-radius: 50%; background: #f79720; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 13px; }
-  .sidebar-foot .name { color: #fff; font-size: 13px; font-weight: 500; }
-  .sidebar-foot .role { color: rgba(255,255,255,0.5); font-size: 11px; }
-  .sidebar-foot .team-badge {
-    display: inline-block;
-    background: rgba(255,255,255,0.1);
-    color: rgba(255,255,255,0.7);
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    margin-top: 2px;
-  }
+  .sidebar-foot { display: none; }
 
   .main-wrap {
     flex: 1;
@@ -314,8 +301,7 @@
 <div class="app">
   <aside class="sidebar">
     <div class="sidebar-logo">
-      <div class="icon">M</div>
-      <span>Metas Empresariales</span>
+      <img src="https://urbaterra.com.gt/wp-content/uploads/sites/15/2025/05/Logotipo-Urbaterra-isotipo-con-color-1024x197.png" alt="URBATERRA" style="height:28px;width:auto;">
     </div>
     <nav class="sidebar-nav">
       <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3z"/><path d="M8 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H9a1 1 0 01-1-1V3z"/><path d="M2 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V9z"/><path d="M8 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H9a1 1 0 01-1-1V9z"/><path d="M14 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1V3z"/><path d="M14 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1V9z"/></svg> Dashboard</a>
@@ -324,18 +310,12 @@
       <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5z"/></svg> Sesiones</a>
       <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/></svg> Evaluaciones</a>
     </nav>
-    <div class="sidebar-foot">
-      <div class="user">
-        <div class="avatar">AR</div>
-        <div><div class="name">Ana R.</div><div class="team-badge">Comercial</div></div>
-      </div>
-    </div>
   </aside>
 
   <div class="main-wrap">
     <div class="header">
       <div class="header-left">
-        <div class="breadcrumb">Equipo Comercial / Compromisos</div>
+        <div class="breadcrumb">Compromisos</div>
         <h1>Tablero de compromisos</h1>
       </div>
       <div class="header-right">
