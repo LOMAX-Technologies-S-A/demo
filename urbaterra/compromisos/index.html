@@ -356,17 +356,13 @@
   .card-category.cat-construccion { background: #ebf5fb; color: #2980b9; }
   .card-category.cat-servicio { background: #e8f8f5; color: #1abc9c; }
   .card-priority {
-    min-width: 20px;
+    min-width: 22px;
     height: 20px;
     border-radius: 10px;
-    padding: 0 5px;
+    padding: 0 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    line-height: 1;
     flex-shrink: 0;
   }
   .card-priority.high { background: #fdebd0; color: #e74c3c; }
@@ -799,7 +795,11 @@ function createCardElement(card, colKey) {
   if (colKey === 'bloqueado') div.classList.add('blocked');
 
   const catLabels = { ventas: 'Ventas', legal: 'Legal', proyectos: 'Proyectos', admin: 'Admin', marketing: 'Marketing', construccion: 'Construcción', servicio: 'Servicio al Cliente' };
-  const prioLabels = { high: '▲▲▲', medium: '▲▲', low: '▲' };
+  const prioIcons = {
+    high: '<svg width="16" height="14" viewBox="0 0 16 14"><rect x="2" y="0" width="12" height="3" rx="1.2" fill="currentColor"/><rect x="2" y="5" width="12" height="3" rx="1.2" fill="currentColor"/><rect x="2" y="10" width="12" height="3" rx="1.2" fill="currentColor"/></svg>',
+    medium: '<svg width="16" height="14" viewBox="0 0 16 14"><rect x="2" y="1.5" width="12" height="3" rx="1.2" fill="currentColor"/><rect x="2" y="6.5" width="12" height="3" rx="1.2" fill="currentColor"/></svg>',
+    low: '<svg width="16" height="14" viewBox="0 0 16 14"><rect x="2" y="4" width="12" height="3" rx="1.2" fill="currentColor"/></svg>'
+  };
   const prioClass = { high: 'high', medium: 'medium', low: 'low' };
   const initials = card.assignee ? card.assignee.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase() : '??';
   const avatarNum = ['p1','p2','p3'][Math.abs(hashCode(card.id||'x'))%3];
@@ -832,7 +832,7 @@ function createCardElement(card, colKey) {
   div.innerHTML = `
     <div class="card-top">
       <span class="card-category cat-${card.category}">${catLabels[card.category]||card.category}</span>
-      <span class="card-priority ${prioClass[card.priority]}">${prioLabels[card.priority]}</span>
+      <span class="card-priority ${prioClass[card.priority]}">${prioIcons[card.priority]}</span>
     </div>
     <div class="card-title" contenteditable="true" spellcheck="false">${escapeHtml(card.title)}</div>
     ${barHtml}
