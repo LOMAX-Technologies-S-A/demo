@@ -17,10 +17,10 @@
   }
   h1,h2,h3,h4 { font-family: 'Poppins', sans-serif; }
 
-  .app { display: flex; min-height: 100vh; background: #0c445c; }
+  .app { display: flex; min-height: 100vh; background: #474ea0; }
   .sidebar {
     width: 220px;
-    background: #0c445c;
+    background: #474ea0;
     padding: 24px 0;
     display: flex;
     flex-direction: column;
@@ -86,6 +86,23 @@
   .btn-danger { background: #e74c3c; color: #fff; }
   .btn-danger:hover { background: #c0392b; }
   .btn-sm { padding: 5px 10px; font-size: 12px; }
+  .filter-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: #fff;
+    border: 1px solid #e0e4e8;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    cursor: default;
+    white-space: nowrap;
+  }
+  .filter-pill svg { width: 15px; height: 15px; color: #0c445c; }
+  .filter-pill .label { color: #999; font-weight: 400; }
+  .filter-pill .value { color: #1a1a1a; font-weight: 600; }
 
   .summary {
     display: grid;
@@ -376,7 +393,17 @@
         <h1>Tablero de compromisos</h1>
       </div>
       <div class="header-right">
-        <button class="btn btn-ghost" onclick="openNewCard()">
+        <div class="filter-pill">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zM4 8h12v8H4V8z" clip-rule="evenodd"/></svg>
+          <span class="label">Semana:</span>
+          <span class="value" id="weekRange">actual</span>
+        </div>
+        <div class="filter-pill">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/></svg>
+          <span class="label">Equipo:</span>
+          <span class="value">Ventas</span>
+        </div>
+        <button class="btn btn-ghost" disabled style="opacity:0.45;cursor:default;pointer-events:none">
           <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 6a1 1 0 011 1v2h2a1 1 0 110 2h-2v2a1 1 0 11-2 0v-2H7a1 1 0 110-2h2V7a1 1 0 011-1z"/></svg>
           Nuevo compromiso
         </button>
@@ -413,7 +440,7 @@
           <span class="col-count" id="count-pendiente">0</span>
         </div>
         <div class="card-list" id="list-pendiente">
-          <div class="add-card" onclick="openNewCard('pendiente')">+ Agregar compromiso</div>
+          <div class="add-card" style="cursor:default;opacity:0.5">+ Agregar compromiso</div>
         </div>
       </div>
       <div class="column c2" data-col="progreso">
@@ -422,7 +449,7 @@
           <span class="col-count" id="count-progreso">0</span>
         </div>
         <div class="card-list" id="list-progreso">
-          <div class="add-card" onclick="openNewCard('progreso')">+ Agregar compromiso</div>
+          <div class="add-card" style="cursor:default;opacity:0.5">+ Agregar compromiso</div>
         </div>
       </div>
       <div class="column c3" data-col="completado">
@@ -431,7 +458,7 @@
           <span class="col-count" id="count-completado">0</span>
         </div>
         <div class="card-list" id="list-completado">
-          <div class="add-card" onclick="openNewCard('completado')">+ Agregar compromiso</div>
+          <div class="add-card" style="cursor:default;opacity:0.5">+ Agregar compromiso</div>
         </div>
       </div>
       <div class="column c4" data-col="bloqueado">
@@ -440,7 +467,7 @@
           <span class="col-count" id="count-bloqueado">0</span>
         </div>
         <div class="card-list" id="list-bloqueado">
-          <div class="add-card" onclick="openNewCard('bloqueado')">+ Agregar compromiso</div>
+          <div class="add-card" style="cursor:default;opacity:0.5">+ Agregar compromiso</div>
         </div>
       </div>
     </div>
@@ -523,6 +550,7 @@ function init() {
     try { data = JSON.parse(saved); } catch(e) { data = null; }
   }
   if (!data) data = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  updateWeekRange();
   render();
   initSortable();
 }
@@ -822,6 +850,18 @@ function deleteCard() {
 }
 
 /* ── Helpers ── */
+function updateWeekRange() {
+  const now = new Date();
+  const day = now.getDay();
+  const diffToMonday = day === 0 ? -6 : 1 - day;
+  const monday = new Date(now);
+  monday.setDate(now.getDate() + diffToMonday);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  const months = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const fmt = (d) => d.getDate() + ' ' + months[d.getMonth()];
+  document.getElementById('weekRange').textContent = fmt(monday) + ' — ' + fmt(sunday);
+}
 function findCard(id) {
   for (const key of Object.keys(data.columns)) {
     const found = data.columns[key].find(c => c.id === id);
