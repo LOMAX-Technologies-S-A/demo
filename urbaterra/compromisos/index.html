@@ -850,9 +850,9 @@ function createCardElement(card, colKey) {
 
   const catLabels = { ventas: 'Ventas', legal: 'Legal', proyectos: 'Proyectos', admin: 'Admin', marketing: 'Marketing', construccion: 'Construcción', servicio: 'Servicio al Cliente' };
   const prioIcons = {
-    high: '<svg width="16" height="14" viewBox="0 0 16 14"><rect x="2" y="0" width="12" height="3" rx="1.2" fill="currentColor"/><rect x="2" y="5" width="12" height="3" rx="1.2" fill="currentColor"/><rect x="2" y="10" width="12" height="3" rx="1.2" fill="currentColor"/></svg>',
-    medium: '<svg width="16" height="14" viewBox="0 0 16 14"><rect x="2" y="1.5" width="12" height="3" rx="1.2" fill="currentColor"/><rect x="2" y="6.5" width="12" height="3" rx="1.2" fill="currentColor"/></svg>',
-    low: '<svg width="16" height="14" viewBox="0 0 16 14"><rect x="2" y="4" width="12" height="3" rx="1.2" fill="currentColor"/></svg>'
+    high: '<svg width="14" height="12" viewBox="0 0 14 12"><rect x="2" y="0" width="10" height="2.5" rx="1" fill="currentColor"/><rect x="2" y="4" width="10" height="2.5" rx="1" fill="currentColor"/><rect x="2" y="8" width="10" height="2.5" rx="1" fill="currentColor"/></svg>',
+    medium: '<svg width="14" height="12" viewBox="0 0 14 12"><rect x="2" y="1.5" width="10" height="2.5" rx="1" fill="currentColor"/><rect x="2" y="5.5" width="10" height="2.5" rx="1" fill="currentColor"/></svg>',
+    low: '<svg width="14" height="12" viewBox="0 0 14 12"><rect x="2" y="4" width="10" height="2.5" rx="1" fill="currentColor"/></svg>'
   };
   const prioClass = { high: 'high', medium: 'medium', low: 'low' };
   const initials = card.assignee ? card.assignee.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase() : '??';
