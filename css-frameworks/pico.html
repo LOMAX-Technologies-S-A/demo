@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo - Pico CSS</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
+</head>
+<body>
+<main>
+  <hgroup>
+    <h1>Compromisos del equipo</h1>
+    <p>Semana del 19 al 25 de mayo · Pico CSS (classless)</p>
+  </hgroup>
+
+  <details open>
+    <summary>📊 Resumen</summary>
+    <table>
+      <tr><td><strong>Total</strong></td><td>9</td><td></td></tr>
+      <tr><td><strong>Completados</strong></td><td>2</td><td>22%</td></tr>
+      <tr><td><strong>En progreso</strong></td><td>3</td><td>33%</td></tr>
+      <tr><td><strong>Bloqueados</strong></td><td>1</td><td>11%</td></tr>
+    </table>
+  </details>
+
+  <article>
+    <header><strong>🔴 Pendiente</strong> <span style="float:right">3</span></header>
+    <p><strong>Preparar informe semanal</strong></p>
+    <small>Asignado: Pablo C. · Vie 23</small>
+    <hr>
+    <p><strong>Actualizar base de clientes</strong></p>
+    <small>Asignado: María G. · Jue 22</small>
+    <hr>
+    <p><strong>Enviar propuesta Urbaterra</strong></p>
+    <small>Asignado: Luis M. · Mié 21</small>
+  </article>
+
+  <article>
+    <header><strong>🟠 En progreso</strong> <span style="float:right">3</span></header>
+    <p><strong>Seguimiento a leads</strong> — 60%</p>
+    <progress value="60" max="100"></progress>
+    <small>Ana R.</small>
+    <hr>
+    <p><strong>Capacitación CRM</strong> — 30%</p>
+    <progress value="30" max="100"></progress>
+    <small>Pablo C.</small>
+    <hr>
+    <p><strong>Revisar pipeline</strong> — 80%</p>
+    <progress value="80" max="100"></progress>
+    <small>María G.</small>
+  </article>
+
+  <article>
+    <header><strong>✅ Completado</strong> <span style="float:right">2</span></header>
+    <p><del>Actualizar indicadores del equipo</del></p>
+    <small>✓ Lun 19 · Ana R.</small>
+    <hr>
+    <p><del>Reporte de cierre de mes</del></p>
+    <small>✓ Lun 19 · Luis M.</small>
+  </article>
+
+  <article>
+    <header><strong>⛔ Bloqueado</strong> <span style="float:right">1</span></header>
+    <p><strong>Cargar escrituras</strong></p>
+    <small>⏳ Esperando documentación · Carlos M.</small>
+  </article>
+
+  <small style="display:block;text-align:center;margin-top:3rem;color:#888">
+    Pico CSS — sin clases, solo HTML semántico. Un solo <code>&lt;link&gt;</code>.
+  </small>
+</main>
+</body>
+</html>

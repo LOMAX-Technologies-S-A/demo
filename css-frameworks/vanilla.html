@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo - Vanilla CSS</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: #f0f2f5;
+    color: #1a1a1a;
+    line-height: 1.5;
+    padding: 32px 16px;
+  }
+  .container { max-width: 640px; margin: 0 auto; }
+
+  .breadcrumb { font-size: 12px; color: #999; margin-bottom: 2px; }
+  h1 { font-size: 22px; font-weight: 600; color: #0c445c; margin-bottom: 20px; }
+
+  .week-badge {
+    display: inline-block;
+    font-size: 12px; color: #888;
+    background: #fff; padding: 4px 12px;
+    border-radius: 20px; border: 1px solid #e0e4e8;
+    margin-bottom: 20px;
+  }
+
+  .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 24px; }
+  .summary-card { background: #fff; border-radius: 10px; padding: 12px; border: 1px solid #e8ecf0; }
+  .summary-card .label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+  .summary-card .value { font-size: 22px; font-weight: 600; font-family: 'Poppins', sans-serif; }
+  .value.green { color: #27ae60; }
+  .value.orange { color: #f79720; }
+  .value.red { color: #e74c3c; }
+
+  .board { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .column { background: #eef1f5; border-radius: 12px; padding: 12px; }
+  .col-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .col-header .col-title { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; color: #333; }
+  .col-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .col-count { font-size: 11px; color: #888; background: #fff; padding: 2px 8px; border-radius: 10px; }
+  .col-orange .col-dot { background: #d35400; }
+  .col-blue .col-dot { background: #0c445c; }
+  .col-green .col-dot { background: #27ae60; }
+  .col-red .col-dot { background: #c0392b; }
+
+  .card { background: #fff; border-radius: 8px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+  .card:last-child { margin-bottom: 0; }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+  .card-category { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; padding: 2px 6px; border-radius: 3px; color: #0c445c; background: #dceeea; }
+  .card-title { font-size: 13px; font-weight: 500; line-height: 1.4; margin-bottom: 6px; }
+  .card-meta { font-size: 11px; color: #888; display: flex; justify-content: space-between; }
+  .card-bar { height: 4px; background: #eef1f5; border-radius: 2px; margin-bottom: 6px; overflow: hidden; }
+  .card-bar .fill { height: 100%; border-radius: 2px; }
+  .card.completed .card-title { text-decoration: line-through; color: #999; }
+  .card.blocked { border-left: 3px solid #e74c3c; }
+
+  .prio-dots { font-size: 10px; letter-spacing: 1px; }
+  .prio-high { color: #e74c3c; }
+  .prio-medium { color: #f79720; }
+  .prio-low { color: #27ae60; }
+
+  .footer-note { text-align: center; margin-top: 32px; font-size: 11px; color: #bbb; }
+
+  @media (max-width: 600px) {
+    .summary { grid-template-columns: repeat(2, 1fr); }
+    .board { grid-template-columns: 1fr; }
+    h1 { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="breadcrumb">Equipo Comercial</div>
+  <h1>Compromisos</h1>
+
+  <div class="week-badge">19 may — 25 may</div>
+
+  <div class="summary">
+    <div class="summary-card"><div class="label">Total</div><div class="value">9</div></div>
+    <div class="summary-card"><div class="label">Completados</div><div class="value green">2</div></div>
+    <div class="summary-card"><div class="label">En progreso</div><div class="value orange">3</div></div>
+    <div class="summary-card"><div class="label">Bloqueados</div><div class="value red">1</div></div>
+  </div>
+
+  <div class="board">
+    <div class="column col-orange">
+      <div class="col-header">
+        <div class="col-title"><span class="col-dot"></span> Pendiente</div>
+        <span class="col-count">3</span>
+      </div>
+      <div class="card">
+        <div class="card-top">
+          <span class="card-category">Ventas</span>
+          <span class="prio-dots prio-high">⬆⬆⬆</span>
+        </div>
+        <div class="card-title">Preparar informe semanal</div>
+        <div class="card-meta"><span>Pablo C.</span><span>Vie 23</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top">
+          <span class="card-category" style="background:#fef3e2;color:#d35400">Comercial</span>
+          <span class="prio-dots prio-medium">⬆⬆</span>
+        </div>
+        <div class="card-title">Actualizar base de clientes</div>
+        <div class="card-meta"><span>María G.</span><span>Jue 22</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top">
+          <span class="card-category">Ventas</span>
+          <span class="prio-dots prio-high">⬆⬆⬆</span>
+        </div>
+        <div class="card-title">Enviar propuesta Urbaterra</div>
+        <div class="card-meta"><span>Luis M.</span><span>Mié 21</span></div>
+      </div>
+    </div>
+
+    <div class="column col-blue">
+      <div class="col-header">
+        <div class="col-title"><span class="col-dot"></span> En progreso</div>
+        <span class="col-count">3</span>
+      </div>
+      <div class="card">
+        <div class="card-title">Seguimiento a leads</div>
+        <div class="card-bar"><div class="fill" style="width:60%;background:#0c445c"></div></div>
+        <div class="card-meta"><span>Ana R.</span><span>60%</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Capacitación CRM</div>
+        <div class="card-bar"><div class="fill" style="width:30%;background:#f79720"></div></div>
+        <div class="card-meta"><span>Pablo C.</span><span>30%</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Revisar pipeline</div>
+        <div class="card-bar"><div class="fill" style="width:80%;background:#27ae60"></div></div>
+        <div class="card-meta"><span>María G.</span><span>80%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="footer-note">Vanilla CSS — todo escrito a mano. Sin dependencias.</p>
+</div>
+</body>
+</html>

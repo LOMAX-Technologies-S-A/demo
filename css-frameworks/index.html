@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Frameworks - Comparación</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #f0f2f5; color: #1a1a1a; padding: 40px 24px; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 700px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 700; color: #0c445c; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: #888; margin-bottom: 32px; }
+  .card { background: #fff; border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; border: 1px solid #e8ecf0; transition: all 0.15s; }
+  .card:hover { border-color: #0c445c; box-shadow: 0 2px 8px rgba(12,68,92,0.08); }
+  .card-title { font-size: 16px; font-weight: 600; color: #0c445c; margin-bottom: 4px; }
+  .card-desc { font-size: 13px; color: #666; margin-bottom: 10px; }
+  .card-tag { display: inline-block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .tag-pico { background: #e8f5e9; color: #27ae60; }
+  .tag-tailwind { background: #dceeea; color: #0c445c; }
+  .tag-vanilla { background: #fef3e2; color: #f79720; }
+  .card-links a { display: inline-block; font-size: 13px; font-weight: 500; text-decoration: none; background: #dceeea; color: #0c445c; padding: 4px 12px; border-radius: 6px; transition: all 0.12s; }
+  .card-links a:hover { background: #0c445c; color: #fff; }
+  .footer { margin-top: 40px; font-size: 12px; color: #aaa; text-align: center; }
+  code { font-size: 12px; background: #eef1f5; padding: 1px 6px; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🎨 CSS Frameworks</h1>
+  <p class="subtitle">Tres enfoques para el mismo tablero de compromisos</p>
+
+  <div class="card">
+    <div class="card-tag tag-pico">Classless</div>
+    <div class="card-title">🌱 Pico CSS</div>
+    <div class="card-desc">Un solo <code>&lt;link&gt;</code> y el HTML semántico se estila solo. <code>&lt;article&gt;</code>, <code>&lt;progress&gt;</code>, <code>&lt;table&gt;</code>, <code>&lt;details&gt;</code> funcionan sin clases.</div>
+    <div class="card-links"><a href="pico.html">Ver demo</a></div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag tag-tailwind">Utility-first</div>
+    <div class="card-title">⚡ Tailwind CSS v4</div>
+    <div class="card-desc">CDN + clases en el HTML. Control granular de cada elemento sin escribir CSS. <code>@theme</code> para colores custom.</div>
+    <div class="card-links"><a href="tailwind.html">Ver demo</a></div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag tag-vanilla">A mano</div>
+    <div class="card-title">📝 Vanilla CSS</div>
+    <div class="card-desc">CSS tradicional escrito a mano. Control total, sin dependencias. Lo que hemos estado usando.</div>
+    <div class="card-links"><a href="vanilla.html">Ver demo</a></div>
+  </div>
+
+  <table style="width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e8ecf0;">
+    <tr style="background:#0c445c;color:#fff;font-weight:600;">
+      <td style="padding:10px 14px;"> </td>
+      <td style="padding:10px 14px;">Pico</td>
+      <td style="padding:10px 14px;">Tailwind</td>
+      <td style="padding:10px 14px;">Vanilla</td>
+    </tr>
+    <tr style="border-bottom:1px solid #eef1f5;">
+      <td style="padding:8px 14px;font-weight:500;">Líneas de CSS</td>
+      <td style="padding:8px 14px;">0</td>
+      <td style="padding:8px 14px;">0</td>
+      <td style="padding:8px 14px;">~90</td>
+    </tr>
+    <tr style="border-bottom:1px solid #eef1f5;">
+      <td style="padding:8px 14px;font-weight:500;">Setup</td>
+      <td style="padding:8px 14px;">1 link</td>
+      <td style="padding:8px 14px;">1 script</td>
+      <td style="padding:8px 14px;">Escribir CSS</td>
+    </tr>
+    <tr style="border-bottom:1px solid #eef1f5;">
+      <td style="padding:8px 14px;font-weight:500;">Control de diseño</td>
+      <td style="padding:8px 14px;">Medio</td>
+      <td style="padding:8px 14px;">Total</td>
+      <td style="padding:8px 14px;">Total</td>
+    </tr>
+    <tr>
+      <td style="padding:8px 14px;font-weight:500;">HTML verbose</td>
+      <td style="padding:8px 14px;">Bajo</td>
+      <td style="padding:8px 14px;">Alto</td>
+      <td style="padding:8px 14px;">Medio</td>
+    </tr>
+  </table>
+
+  <div class="footer">CSS Frameworks — LOMAX Technologies S.A.</div>
+</div>
+</body>
+</html>
