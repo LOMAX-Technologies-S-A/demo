@@ -21,31 +21,31 @@
   .sidebar {
     width: 220px;
     background: #232856;
-    padding: 24px 0;
+    padding: 20px 0 0;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
     user-select: none;
     -webkit-user-select: none;
   }
-  .sidebar-logo { padding: 0 20px 28px; display: flex; align-items: center; }
+  .sidebar-logo { padding: 0 20px 24px; display: flex; align-items: center; }
   .sidebar-logo img { height: 28px; width: auto; }
-  .sidebar-nav { display: flex; flex-direction: column; gap: 2px; padding: 0 12px 12px; }
+  .sidebar-nav { display: flex; flex-direction: column; gap: 2px; padding: 0 8px 12px; }
   .sidebar-nav a {
     color: rgba(255,255,255,0.6);
     text-decoration: none;
-    padding: 10px 12px;
+    padding: 12px 16px;
     border-radius: 10px;
     font-size: 14px;
     font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     transition: all 0.15s;
   }
   .sidebar-nav a:hover { background: rgba(255,255,255,0.08); color: #fff; }
   .sidebar-nav a.active { background: rgba(255,255,255,0.12); color: #fff; font-weight: 600; }
-  .sidebar-nav a svg { width: 18px; height: 18px; }
+  .sidebar-nav a svg { width: 18px; height: 18px; flex-shrink: 0; }
   .sidebar-foot { display: none; }
   .sidebar-divider {
     height: 1px;
@@ -65,7 +65,7 @@
   }
   .sidebar-team {
     margin: 0 0 12px;
-    padding: 0 12px;
+    padding: 0 8px;
   }
   .sidebar-team .st-label {
     font-size: 10px;
@@ -82,7 +82,7 @@
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 12px;
-    padding: 10px 12px;
+    padding: 12px 16px;
     cursor: default;
     transition: background 0.15s;
   }
@@ -111,7 +111,7 @@
   }
   .sidebar-team .st-chevron { width: 16px; height: 16px; color: rgba(255,255,255,0.3); }
   .sidebar-users {
-    padding: 0 12px;
+    padding: 0 8px;
     margin-bottom: 12px;
     flex: 1;
     overflow-y: auto;
@@ -124,7 +124,7 @@
     color: rgba(255,255,255,0.35);
     font-weight: 600;
     margin-bottom: 6px;
-    padding: 0 12px;
+    padding: 0 8px;
   }
   .sidebar-users .su-list {
     display: flex;
@@ -135,7 +135,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 6px 12px;
+    padding: 8px 12px;
     border-radius: 8px;
     cursor: default;
     transition: background 0.12s;
@@ -143,7 +143,7 @@
   .sidebar-users .su-item:hover { background: rgba(255,255,255,0.06); }
   .sidebar-users .su-item.active { background: rgba(255,255,255,0.1); }
   .sidebar-users .su-item img {
-    width: 26px; height: 26px;
+    width: 28px; height: 28px;
     border-radius: 50%;
     flex-shrink: 0;
   }
@@ -171,7 +171,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 24px;
+    padding: 12px 24px;
     margin-top: auto;
     font-size: 12px;
     color: rgba(255,255,255,0.35);
@@ -542,7 +542,6 @@
     .modal { padding: 20px; margin: 12px; max-height: 90vh; }
   }
 
-  /* ── Hamburger button (phone only) ── */
   .hamburger {
     display: none;
     width: 36px; height: 36px;
@@ -558,6 +557,14 @@
   }
   .hamburger:hover { background: #f5f5f5; }
   .hamburger svg { width: 20px; height: 20px; color: #555; }
+
+  /* ── Topbar logo (phone only) ── */
+  .topbar-logo {
+    display: none;
+    height: 22px;
+    width: auto;
+    flex-shrink: 0;
+  }
 
   /* ── Sidebar overlay (phone only) ── */
   .sidebar-overlay {
@@ -595,8 +602,17 @@
     .sidebar-reset { display: flex; }
     .sidebar-foot { display: none; }
 
-    .main-wrap { padding: 10px; }
+    .main-wrap { padding: 56px 10px 10px; }
     .hamburger { display: flex; }
+    .topbar-logo { display: block; }
+    .header {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 30;
+      background: #f4f6f9;
+      padding: 10px 12px;
+      margin-bottom: 0;
+      border-bottom: 1px solid #e0e4e8;
+    }
     .header-left { gap: 8px; }
     .header-left h1 { font-size: 16px; }
     .header-left .breadcrumb { font-size: 11px; }
@@ -692,6 +708,7 @@
         <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Abrir menú">
           <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
         </button>
+        <img class="topbar-logo" src="https://urbaterra.com.gt/wp-content/uploads/sites/15/2025/05/Logotipo-Urbaterra-isotipo-con-color-1024x197.png" alt="URBATERRA">
         <div>
           <div class="breadcrumb">Compromisos</div>
           <h1>Tablero de compromisos</h1>
