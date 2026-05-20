@@ -25,6 +25,8 @@
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
+    user-select: none;
+    -webkit-user-select: none;
   }
   .sidebar-logo { padding: 0 20px 28px; display: flex; align-items: center; }
   .sidebar-logo img { height: 28px; width: auto; }
@@ -773,7 +775,7 @@ function createCardElement(card, colKey) {
   if (colKey === 'bloqueado') div.classList.add('blocked');
 
   const catLabels = { ventas: 'Ventas', legal: 'Legal', proyectos: 'Proyectos', admin: 'Admin', marketing: 'Marketing', construccion: 'Construcción', servicio: 'Servicio al Cliente' };
-  const prioLabels = { high: 'A', medium: 'M', low: 'B' };
+  const prioLabels = { high: '↑↑↑', medium: '↑↑', low: '↑' };
   const prioClass = { high: 'high', medium: 'medium', low: 'low' };
   const initials = card.assignee ? card.assignee.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase() : '??';
   const avatarNum = ['p1','p2','p3'][Math.abs(hashCode(card.id||'x'))%3];
@@ -812,12 +814,6 @@ function createCardElement(card, colKey) {
     ${barHtml}
     <div class="card-bottom">${bottomHtml}</div>
   `;
-
-  // Click on card body → open edit modal
-  div.addEventListener('click', function(e) {
-    if (e.target.classList.contains('card-title')) return; // handled by contenteditable
-    openEditCard(card.id, colKey);
-  });
 
   // Inline title edit
   const titleEl = div.querySelector('.card-title');
