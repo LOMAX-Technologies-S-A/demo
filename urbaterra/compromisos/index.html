@@ -566,6 +566,11 @@
     flex-shrink: 0;
   }
 
+  /* ── Topbar mobile (phone only) ── */
+  .topbar-mobile {
+    display: none;
+  }
+
   /* ── Sidebar overlay (phone only) ── */
   .sidebar-overlay {
     display: none;
@@ -607,16 +612,32 @@
 
     .main-wrap { padding: 56px 10px 10px; }
     .hamburger { display: flex; }
-    .topbar-logo { display: block; }
-    .header {
+    .topbar-mobile {
+      display: flex;
       position: fixed; top: 0; left: 0; right: 0;
       z-index: 30;
-      background: #f4f6f9;
-      padding: 10px 12px;
-      margin-bottom: 0;
-      border-bottom: 1px solid #e0e4e8;
+      height: 46px;
+      align-items: center;
+      justify-content: space-between;
+      background: #232856;
+      padding: 0 16px;
     }
-    .header-left { display: flex; align-items: center; gap: 10px; }
+    .topbar-mobile-logo { height: 20px; width: auto; }
+    .topbar-mobile .hamburger {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+    }
+    .topbar-mobile .hamburger svg { color: #fff; }
+    .topbar-mobile .hamburger:hover { background: rgba(255,255,255,0.1); }
+
+    .topbar-logo { display: none; }
+
+    .header {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+    .header-left { display: block; }
     .header-left h1 { font-size: 16px; }
     .header-left .breadcrumb { font-size: 11px; }
     .header-right { gap: 4px; }
@@ -705,13 +726,17 @@
     </div>
   </aside>
 
+  <!-- Topbar móvil: logo izq, hamburger der -->
+  <div class="topbar-mobile" id="topbarMobile">
+    <img class="topbar-mobile-logo" src="https://urbaterra.com.gt/wp-content/uploads/sites/15/2025/05/Logotipo-Urbaterra-isotipo-con-color-1024x197.png" alt="URBATERRA">
+    <button class="hamburger" onclick="toggleSidebar()" aria-label="Abrir menú">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+    </button>
+  </div>
+
   <div class="main-wrap">
     <div class="header">
       <div class="header-left">
-        <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Abrir menú">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
-        </button>
-        <img class="topbar-logo" src="https://urbaterra.com.gt/wp-content/uploads/sites/15/2025/05/Logotipo-Urbaterra-isotipo-con-color-1024x197.png" alt="URBATERRA">
         <div>
           <div class="breadcrumb">Compromisos</div>
           <h1>Tablero de compromisos</h1>
