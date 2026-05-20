@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compromisos - Visual Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: #1a1a1a;
+    background: #f0f2f5;
+    line-height: 1.5;
+  }
+  h1,h2,h3,h4 { font-family: 'Poppins', sans-serif; }
+
+  /* App Layout */
+  .app { display: flex; min-height: 100vh; background: #0c445c; }
+  .sidebar {
+    width: 220px;
+    background: #0c445c;
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  .sidebar-logo { padding: 0 20px 28px; display: flex; align-items: center; gap: 10px; }
+  .sidebar-logo .icon { width: 32px; height: 32px; background: #f79720; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 16px; font-family: 'Poppins'; }
+  .sidebar-logo span { color: #fff; font-weight: 600; font-size: 15px; }
+  .sidebar-nav { display: flex; flex-direction: column; gap: 2px; padding: 0 12px; flex: 1; }
+  .sidebar-nav a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.15s;
+  }
+  .sidebar-nav a:hover { background: rgba(255,255,255,0.08); color: #fff; }
+  .sidebar-nav a.active { background: rgba(255,255,255,0.12); color: #fff; font-weight: 600; }
+  .sidebar-nav a svg { width: 18px; height: 18px; }
+  .sidebar-foot { padding: 20px 16px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: auto; }
+  .sidebar-foot .user { display: flex; align-items: center; gap: 10px; }
+  .sidebar-foot .avatar { width: 32px; height: 32px; border-radius: 50%; background: #f79720; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 13px; }
+  .sidebar-foot .name { color: #fff; font-size: 13px; font-weight: 500; }
+  .sidebar-foot .role { color: rgba(255,255,255,0.5); font-size: 11px; }
+  .sidebar-foot .team-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 2px;
+  }
+
+  .main-wrap {
+    flex: 1;
+    background: #f4f6f9;
+    border-radius: 20px 0 0 20px;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .header-left h1 { font-size: 22px; font-weight: 600; color: #0c445c; }
+  .header-left .breadcrumb { font-size: 12px; color: #999; margin-bottom: 2px; }
+  .header-right { display: flex; gap: 8px; align-items: center; }
+  .btn {
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+  .btn-primary { background: #0c445c; color: #fff; }
+  .btn-primary:hover { background: #0a3a4f; }
+  .btn-ghost { background: #fff; color: #555; border: 1px solid #e0e4e8; }
+  .btn-ghost:hover { background: #f5f5f5; border-color: #ccc; }
+  .btn-accent { background: #f79720; color: #fff; }
+  .btn-accent:hover { background: #e0891a; }
+
+  /* Summary bar */
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .summary-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #e8ecf0;
+  }
+  .summary-card .label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin-bottom: 4px; }
+  .summary-card .value { font-size: 24px; font-weight: 600; color: #1a1a1a; font-family: 'Poppins', sans-serif; }
+  .summary-card .sub { font-size: 12px; color: #27ae60; margin-top: 2px; }
+  .summary-card .value.orange { color: #f79720; }
+  .summary-card .value.green { color: #27ae60; }
+  .summary-card .value.red { color: #e74c3c; }
+
+  /* Kanban */
+  .kanban { display: flex; gap: 14px; flex: 1; overflow-x: auto; padding-bottom: 8px; }
+  .column {
+    min-width: 275px;
+    max-width: 310px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px 12px;
+  }
+  .column-header .col-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+  }
+  .column-header .col-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+  .column-header .col-count {
+    font-size: 12px;
+    color: #888;
+    font-weight: 500;
+    background: #e8ecf0;
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
+
+  .column.c1 .col-dot { background: #d35400; }
+  .column.c2 .col-dot { background: #0c445c; }
+  .column.c3 .col-dot { background: #27ae60; }
+  .column.c4 .col-dot { background: #c0392b; }
+  .column.c1 .col-count { background: #fdebd0; color: #d35400; }
+  .column.c2 .col-count { background: #dceeea; color: #0c445c; }
+  .column.c3 .col-count { background: #d5f5e3; color: #27ae60; }
+  .column.c4 .col-count { background: #fadbd8; color: #c0392b; }
+
+  .card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    background: #eef1f5;
+    border-radius: 12px;
+    padding: 12px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    position: relative;
+  }
+  .card:hover {
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .card-category {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #0c445c;
+    background: #dceeea;
+  }
+  .card-priority {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+  .card-priority.high { background: #fdebd0; color: #e74c3c; }
+  .card-priority.medium { background: #fef3e2; color: #f79720; }
+  .card-priority.low { background: #e8f5e9; color: #27ae60; }
+
+  .card-title { font-size: 13px; font-weight: 500; line-height: 1.4; margin-bottom: 10px; color: #1a1a1a; }
+  .card-bar {
+    width: 100%;
+    height: 5px;
+    background: #eef1f5;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .card-bar .fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.4s;
+  }
+  .card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: #888;
+  }
+  .card-people {
+    display: flex;
+    align-items: center;
+  }
+  .card-people .avatar {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    font-size: 9px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: -4px;
+  }
+  .card-people .avatar:first-child { margin-left: 0; }
+  .card-people .avatar.p1 { background: #0c445c; color: #fff; z-index: 3; }
+  .card-people .avatar.p2 { background: #f79720; color: #fff; z-index: 2; }
+  .card-people .avatar.p3 { background: #27ae60; color: #fff; z-index: 1; }
+  .card-people .more { font-size: 10px; color: #aaa; margin-left: 6px; }
+
+  .card.completed { opacity: 0.7; }
+  .card.completed .card-title { text-decoration: line-through; color: #999; }
+  .card.blocked { border-left: 3px solid #e74c3c; }
+
+  .add-card {
+    padding: 10px;
+    color: #999;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 8px;
+    border: 1px dashed #d0d5db;
+    margin-top: 6px;
+    transition: all 0.15s;
+  }
+  .add-card:hover { background: #fff; color: #0c445c; border-color: #0c445c; }
+
+  /* Quick modal */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 100;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: #fff; border-radius: 16px;
+    width: 440px; max-width: 90vw;
+    padding: 28px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+  .modal h2 { font-size: 17px; font-weight: 600; color: #0c445c; margin-bottom: 20px; }
+  .modal label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+  .modal input, .modal select, .modal textarea {
+    width: 100%; padding: 9px 12px;
+    border: 1px solid #ddd; border-radius: 8px;
+    font-size: 14px; font-family: 'Inter', sans-serif;
+    margin-bottom: 14px;
+  }
+  .modal input:focus, .modal select:focus, .modal textarea:focus { outline: none; border-color: #0c445c; }
+  .modal textarea { resize: vertical; min-height: 50px; }
+  .modal .row { display: flex; gap: 12px; }
+  .modal .row > * { flex: 1; }
+
+  @media (max-width: 900px) {
+    .app { flex-direction: column; }
+    .sidebar { width: 100%; padding: 12px 0; }
+    .sidebar-nav { flex-direction: row; overflow-x: auto; padding: 0 12px; }
+    .sidebar-nav a { white-space: nowrap; font-size: 12px; }
+    .sidebar-foot { display: none; }
+    .main-wrap { border-radius: 0; padding: 16px; }
+    .summary { grid-template-columns: repeat(2, 1fr); }
+    .kanban { flex-direction: column; }
+    .column { max-width: none; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="icon">M</div>
+      <span>Metas Empresariales</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3z"/><path d="M8 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H9a1 1 0 01-1-1V3z"/><path d="M2 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V9z"/><path d="M8 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H9a1 1 0 01-1-1V9z"/><path d="M14 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1V3z"/><path d="M14 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1V9z"/></svg> Dashboard</a>
+      <a href="#" class="active"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4z"/><path d="M3 10a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2z"/><path d="M3 16a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2z"/></svg> Compromisos</a>
+      <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812z" clip-rule="evenodd"/></svg> Metas</a>
+      <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5z"/></svg> Sesiones</a>
+      <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/></svg> Evaluaciones</a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="user">
+        <div class="avatar">AR</div>
+        <div><div class="name">Ana R.</div><div class="team-badge">Comercial</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-wrap">
+    <div class="header">
+      <div class="header-left">
+        <div class="breadcrumb">Equipo Comercial / Compromisos</div>
+        <h1>Tablero de compromisos</h1>
+      </div>
+      <div class="header-right">
+        <button class="btn btn-ghost" onclick="document.querySelector('.modal-overlay').classList.add('active')">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 6a1 1 0 011 1v2h2a1 1 0 110 2h-2v2a1 1 0 11-2 0v-2H7a1 1 0 110-2h2V7a1 1 0 011-1z"/></svg>
+          Nuevo
+        </button>
+        <button class="btn btn-accent">Semana actual</button>
+      </div>
+    </div>
+
+    <div class="summary">
+      <div class="summary-card">
+        <div class="label">Total compromisos</div>
+        <div class="value">9</div>
+        <div class="sub">↑ 2 más que la semana pasada</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Completados</div>
+        <div class="value green">2</div>
+        <div class="sub">22% de avance semanal</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">En progreso</div>
+        <div class="value orange">3</div>
+        <div class="sub">3 con avance &gt;50%</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Bloqueados</div>
+        <div class="value red">1</div>
+        <div class="sub">Requiere atención</div>
+      </div>
+    </div>
+
+    <div class="kanban">
+      <div class="column c1">
+        <div class="column-header">
+          <div class="col-title"><span class="col-dot"></span> Pendiente</div>
+          <span class="col-count">3</span>
+        </div>
+        <div class="card-list">
+          <div class="card" onclick="alert('📋 Preparar informe semanal de prospección para gerencia\nMCI: Ventas | Prioridad: Alta | Asignado: Pablo C.')">
+            <div class="card-top">
+              <span class="card-category">MCI Ventas</span>
+              <span class="card-priority high">‼</span>
+            </div>
+            <div class="card-title">Preparar informe semanal de prospección para gerencia</div>
+            <div class="card-bottom">
+              <div class="card-people"><div class="avatar p1">PC</div></div>
+              <span>Vie 23</span>
+            </div>
+          </div>
+          <div class="card" onclick="alert('📋 Actualizar base de clientes con datos de contacto\nMCI: Retención | Prioridad: Media | Asignado: María G.')">
+            <div class="card-top">
+              <span class="card-category">MCI Retención</span>
+              <span class="card-priority medium">●</span>
+            </div>
+            <div class="card-title">Actualizar base de clientes con datos de contacto nuevos</div>
+            <div class="card-bottom">
+              <div class="card-people"><div class="avatar p2" style="background:#27ae60">MG</div></div>
+              <span>Jue 22</span>
+            </div>
+          </div>
+          <div class="card" onclick="alert('📋 Enviar propuesta comercial a Urbaterra\nMCI: Ventas | Prioridad: Alta | Asignado: Luis M.')">
+            <div class="card-top">
+              <span class="card-category">MCI Ventas</span>
+              <span class="card-priority high">‼</span>
+            </div>
+            <div class="card-title">Enviar propuesta comercial a Urbaterra</div>
+            <div class="card-bottom">
+              <div class="card-people"><div class="avatar p3">LM</div></div>
+              <span>Mié 21</span>
+            </div>
+          </div>
+          <div class="add-card">+ Agregar compromiso</div>
+        </div>
+      </div>
+
+      <div class="column c2">
+        <div class="column-header">
+          <div class="col-title"><span class="col-dot"></span> En progreso</div>
+          <span class="col-count">3</span>
+        </div>
+        <div class="card-list">
+          <div class="card" onclick="alert('📋 Seguimiento a leads feria\nMCI: Comercial | Avance: 60%')">
+            <div class="card-top">
+              <span class="card-category">MCI Comercial</span>
+              <span class="card-priority medium">●</span>
+            </div>
+            <div class="card-title">Seguimiento a leads — llamar a 10 contactos de feria</div>
+            <div class="card-bar"><div class="fill" style="width:60%;background:#0c445c"></div></div>
+            <div class="card-bottom">
+              <div class="card-people"><div class="avatar p2">AR</div></div>
+              <span>60%</span>
+            </div>
+          </div>
+          <div class="card" onclick="alert('📋 Coordinar capacitación CRM\nMCI: Equipo | Avance: 30%')">
+            <div class="card-top">
+              <span class="card-category">MCI Equipo</span>
+              <span class="card-priority low">●</span>
+            </div>
+            <div class="card-title">Coordinar capacitación sobre CRM para el equipo</div>
+            <div class="card-bar"><div class="fill" style="width:30%;background:#f79720"></div></div>
+            <div class="card-bottom">
+              <div class="card-people"><div class="avatar p1">PC</div></div>
+              <span>30%</span>
+            </div>
+          </div>
+          <div class="card" onclick="alert('📋 Revisar pipeline\nMCI: Ventas | Avance: 80%')">
+            <div class="card-top">
+              <span class="card-category">MCI Ventas</span>
+              <span class="card-priority high">‼</span>
+            </div>
+            <div class="card-title">Revisar pipeline y actualizar forecast del trimestre</div>
+            <div class="card-bar"><div class="fill" style="width:80%;background:#27ae60"></div></div>
+            <div class="card-bottom">
+              <div class="card-people"><div class="avatar p2">MG</div></div>
+              <span>80%</span>
+            </div>
+          </div>
+          <div class="add-card">+ Agregar compromiso</div>
+        </div>
+      </div>
+
+      <div class="column c3">
+        <div class="column-header">
+          <div class="col-title"><span class="col-dot"></span> Completado</div>
+          <span class="col-count">2</span>
+        </div>
+        <div class="card-list">
+          <div class="card completed" onclick="alert('✓ Actualizar tabla de indicadores — Completado Lun 19')">
+            <div class="card-top">
+              <span class="card-category">MCI Equipo</span>
+              <span class="card-priority low">●</span>
+            </div>
+            <div class="card-title">Actualizar tabla de indicadores del equipo en drive</div>
+            <div class="card-bottom">
+              <span style="color:#27ae60;font-weight:600">✓ Completado</span>
+              <span>Lun 19</span>
+            </div>
+          </div>
+          <div class="card completed" onclick="alert('✓ Reporte de cierre de mes — Completado Lun 19')">
+            <div class="card-top">
+              <span class="card-category">MCI Ventas</span>
+              <span class="card-priority medium">●</span>
+            </div>
+            <div class="card-title">Enviar reporte de cierre de mes a dirección</div>
+            <div class="card-bottom">
+              <span style="color:#27ae60;font-weight:600">✓ Completado</span>
+              <span>Lun 19</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="column c4">
+        <div class="column-header">
+          <div class="col-title"><span class="col-dot"></span> Bloqueado</div>
+          <span class="col-count">1</span>
+        </div>
+        <div class="card-list">
+          <div class="card blocked" onclick="alert('⏳ Cargar escrituras — Esperando documentación del cliente')">
+            <div class="card-top">
+              <span class="card-category">MCI Comercial</span>
+              <span class="card-priority high">‼</span>
+            </div>
+            <div class="card-title">Cargar escrituras al sistema — pendiente docs del cliente</div>
+            <div class="card-bottom">
+              <div class="card-people"><div class="avatar p2">AR</div></div>
+              <span style="color:#c0392b">⏳ Esperando</span>
+            </div>
+          </div>
+          <div class="add-card">+ Agregar compromiso</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="modal">
+    <h2>Nuevo compromiso</h2>
+    <label>Título del compromiso</label>
+    <input type="text" placeholder="¿Qué te comprometes a hacer esta semana?">
+    <label>Meta MCI relacionada</label>
+    <select><option>MCI Ventas — Incrementar facturación 20%</option><option>MCI Retención — Reducir churn a 5%</option><option>MCI Comercial — Cerrar 3 contratos</option><option>MCI Equipo — Capacitar al equipo</option></select>
+    <div class="row">
+      <div><label>Prioridad</label><select><option>Alta</option><option selected>Media</option><option>Baja</option></select></div>
+      <div><label>Fecha límite</label><input type="date" value="2026-05-23"></div>
+    </div>
+    <label>Notas (opcional)</label>
+    <textarea placeholder="Detalles adicionales..."></textarea>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn btn-ghost" onclick="this.closest('.modal-overlay').classList.remove('active')">Cancelar</button>
+      <button class="btn btn-accent" onclick="alert('✅ Compromiso creado (demo)');this.closest('.modal-overlay').classList.remove('active')">Crear</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
