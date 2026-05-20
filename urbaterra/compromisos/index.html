@@ -45,6 +45,22 @@
   .sidebar-nav a.active { background: rgba(255,255,255,0.12); color: #fff; font-weight: 600; }
   .sidebar-nav a svg { width: 18px; height: 18px; }
   .sidebar-foot { display: none; }
+  .sidebar-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.07);
+    margin: 8px 20px 12px;
+    flex-shrink: 0;
+  }
+  .ss-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: rgba(255,255,255,0.3);
+    font-weight: 600;
+    padding: 0 24px;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+  }
   .sidebar-team {
     margin: 0 12px 16px;
     padding: 0 12px;
@@ -467,6 +483,8 @@
     .sidebar-nav { flex-direction: row; overflow-x: auto; padding: 0 12px; }
     .sidebar-nav a { white-space: nowrap; font-size: 12px; }
     .sidebar-foot { display: none; }
+    .sidebar-divider { margin: 6px 16px 8px; }
+    .ss-label { padding: 0 20px; font-size: 9px; }
     .main-wrap { border-radius: 0; padding: 16px; }
     .summary { grid-template-columns: repeat(2, 1fr); }
     .kanban { flex-direction: column; }
@@ -490,38 +508,41 @@
     <div class="sidebar-logo">
       <img src="https://urbaterra.com.gt/wp-content/uploads/sites/15/2025/05/Logotipo-Urbaterra-isotipo-con-color-1024x197.png" alt="URBATERRA">
     </div>
+    <div class="ss-label">Módulos</div>
     <nav class="sidebar-nav">
       <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V3z"/><path d="M8 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H9a1 1 0 01-1-1V3z"/><path d="M2 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H3a1 1 0 01-1-1V9z"/><path d="M8 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H9a1 1 0 01-1-1V9z"/><path d="M14 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1V3z"/><path d="M14 9a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1V9z"/></svg> Dashboard</a>
       <a href="#" class="active"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4z"/><path d="M3 10a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2z"/><path d="M3 16a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2z"/></svg> Compromisos</a>
       <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812z" clip-rule="evenodd"/></svg> Metas</a>
-      <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5z"/></svg> Sesiones</a>
+      <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5z"/></svg> Vista General</a>
       <a href="#"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/></svg> Evaluaciones</a>
     </nav>
+    <div class="sidebar-divider"></div>
+    <div class="ss-label">Filtros</div>
     <div class="sidebar-users">
       <div class="su-label">Miembros del equipo</div>
       <div class="su-list">
         <div class="su-item active">
-          <img src="https://ui-avatars.com/api/?name=Pablo+Castillo&background=42498d&color=fff&size=26" alt="">
-          <span class="su-name">Pablo Castillo</span>
+          <img src="https://ui-avatars.com/api/?name=Diego+Morales&background=42498d&color=fff&size=26" alt="">
+          <span class="su-name">Diego Morales</span>
           <span class="su-dot"></span>
         </div>
         <div class="su-item">
-          <img src="https://ui-avatars.com/api/?name=Ana+Rodriguez&background=e67e22&color=fff&size=26" alt="">
+          <img src="https://ui-avatars.com/api/?name=Ana+Rodriguez&background=5b6199&color=fff&size=26" alt="">
           <span class="su-name">Ana Rodríguez</span>
           <span class="su-dot"></span>
         </div>
         <div class="su-item">
-          <img src="https://ui-avatars.com/api/?name=Luis+Martinez&background=27ae60&color=fff&size=26" alt="">
+          <img src="https://ui-avatars.com/api/?name=Luis+Martinez&background=6d72a3&color=fff&size=26" alt="">
           <span class="su-name">Luis Martínez</span>
           <span class="su-dot"></span>
         </div>
         <div class="su-item">
-          <img src="https://ui-avatars.com/api/?name=Maria+Gonzalez&background=c0392b&color=fff&size=26" alt="">
+          <img src="https://ui-avatars.com/api/?name=Maria+Gonzalez&background=3e447a&color=fff&size=26" alt="">
           <span class="su-name">María González</span>
           <span class="su-dot"></span>
         </div>
         <div class="su-item">
-          <img src="https://ui-avatars.com/api/?name=Carlos+Garcia&background=8e44ad&color=fff&size=26" alt="">
+          <img src="https://ui-avatars.com/api/?name=Carlos+Garcia&background=4e5489&color=fff&size=26" alt="">
           <span class="su-name">Carlos García</span>
           <span class="su-dot"></span>
         </div>
@@ -554,7 +575,7 @@
           <span class="label">Semana:</span>
           <span class="value" id="weekRange">actual</span>
         </div>
-        <button class="btn btn-ghost" onclick="openNewCard()">
+        <button class="btn btn-accent" onclick="openNewCard()">
           <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 6a1 1 0 011 1v2h2a1 1 0 110 2h-2v2a1 1 0 11-2 0v-2H7a1 1 0 110-2h2V7a1 1 0 011-1z"/></svg>
           Nuevo compromiso
         </button>
